@@ -28,5 +28,5 @@ class Estudiantes(models.Model):
     
 class Entregables(models.Model):
     nombre_entrega = models.CharField(max_length=100)
-    fecha_de_entrega = models.DateTimeField(auto_now_add=True)
-    entregado = models.BooleanField(default=False)
+    fecha_de_entrega = models.DateField()
+    entregado = models.BooleanField(default=True)
