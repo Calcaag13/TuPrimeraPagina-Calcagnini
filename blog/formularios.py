@@ -21,4 +21,6 @@ class EntregablesForm(forms.ModelForm):
         model = Entregables
         fields = ['nombre_entrega','fecha_de_entrega','entregado']
 
+class SearchForm(forms.Form):
+    query = forms.CharField(label='Buscar', max_length=100)
 

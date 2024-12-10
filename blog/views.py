@@ -1,40 +1,67 @@
-from django.shortcuts import render, get_object_or_404
-from .formularios import ProfesoresForm, CursosForm, EstudiantesForm, EntregablesForm
+from django.shortcuts import render, redirect
+from .formularios import EstudiantesForm, ProfesoresForm, CursosForm, EntregablesForm, SearchForm  
 from .models import Profesores, Cursos, Estudiantes, Entregables
 
-def index(request):
-    entregables = Entregables.objects.all()
-    return render(request, 'index.html', {'Entregables': entregables})
-
-def add_profesor(request):
-    form = ProfesoresForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-    return render(request, 'add_profesor.html', {'form': form})
+def home(request):
+    return render(request, 'blog/index.html')
 
 def add_curso(request):
-    form = CursosForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-    return render(request, 'add_curso.html', {'form': form})
+    if request.method == 'POST':
+        form = CursosForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('blog:home')
+    else:
+        form = CursosForm()
+    return render(request, 'blog/add_curso.html', {'form': form})
 
-def add_estudiante(request):
-    form = EstudiantesForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-    return render(request, 'add_estudiante.html', {'form': form})
 
 def add_entregable(request):
-    form = EntregablesForm
-    if form.is_valid():
-        form.save()
-    return render(request, 'add_entregable.html', {'form': form})
+    if request.method == 'POST':
+        form = EntregablesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('blog:home')
+    else:
+        form = EntregablesForm()
+    return render(request, 'blog/add_entregable.html', {'form': form})
 
+
+def add_estudiante(request):
+    if request.method == 'POST':
+        form = EstudiantesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('blog:home')
+    else:
+        form = EstudiantesForm()
+    return render(request, 'blog/add_estudiante.html', {'form': form})
+
+
+def add_profesor(request):
+    if request.method == 'POST':
+        form = ProfesoresForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('blog:home')
+    else:
+        form = ProfesoresForm()
+    return render(request, 'blog/add_profesor.html', {'form': form})
 
 def search(request):
-    query = request.GET.get('q')
-    results = Entregables.objects.filter(titulo__icontains=query)
-    return render(request, 'search_results.html', {'results': results})
+    results = []
+    if request.method == 'GET' and 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            
+            estudiantes = Estudiantes.objects.filter(nombre_estudiante__icontains=query)
+            profesores = Profesores.objects.filter(nombre_profe__icontains=query)
+            cursos = Cursos.objects.filter(curso__icontains=query)
+            entregables = Entregables.objects.filter(nombre_entrega__icontains=query)
 
+            results = list(estudiantes) + list(profesores) + list(cursos) + list(entregables)
+    else:
+        form = SearchForm()
 
-# Create your views here.
+    return render(request, 'blog/search_results.html', {'form': form, 'results': results})

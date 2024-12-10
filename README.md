@@ -1,20 +1,15 @@
 ## Funcionalidades
 
 - Herencia de plantillas HTML.
-- Tres modelos en `models.py`: Autor, Categoria, Post.
+- Cuatro modelos en `models.py`: Estudiantes, Cursos, Profesores, Entregables.
 - Formularios para agregar datos a cada uno de los modelos.
 - Búsqueda en la base de datos.
 
 ## Cómo Probar el Proyecto
 
-1. Clonar el repositorio.
-2. Ejecutar `pip install -r requirements.txt` para instalar las dependencias.
-3. Configurar la base de datos ejecutando `python manage.py migrate`.
-4. Crear un superusuario con `python manage.py createsuperuser`.
-5. Ejecutar el servidor con `python manage.py runserver`.
-6. Navegar a `http://localhost:8000/` para ver la página principal.
-7. Usar los enlaces `Añadir Autor`, `Añadir Categoria`, `Añadir Post` para agregar datos.
-8. Usar la barra de búsqueda en la página principal para buscar posts.
+1. Ingresar a alguno de los 4 menús para ingresar información ("Añadir Estudiante", "Añadir Curso", "Añadir Entregable", "Añadir Profesor")
+2. Luego de ingresar los datos volverá a la página principal. Seleccionar la opción de "Buscar en la base de datos".
+3. Ingresar alguno de los campos con los que haya completado la adición de alguna de las anteriores clases y presionar "Buscar"
 
 ## Estructura del Proyecto
 

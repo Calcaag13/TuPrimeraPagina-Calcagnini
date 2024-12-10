@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Resultados de Búsqueda{% endblock %}
+
+{% block content %}
+<h2>Resultados de Búsqueda</h2>
+<form method="get" action="{% url 'blog:search' %}">
+    {{ form.as_p }}
+    <button type="submit">Buscar</button>
+</form>
+{% if results %}
+    <ul>
+    {% for result in results %}
+        {% if result.nombre_estudiante %}
+            <li>{{ result.nombre_estudiante }} {{ result.apellido_estudiante }} - {{ result.email_estudiante }}</li>
+        {% elif result.nombre_profesor %}
+            <li>{{ result.nombre_profesor }} {{ result.apellido_profesor }} - {{ result.email_profesor }}</li>
+        {% elif result.nombre_curso %}
+            <li>{{ result.nombre_curso }} - {{ result.descripcion_curso }}</li>
+        {% elif result.titulo_entregable %}
+            <li>{{ result.titulo_entregable }} - {{ result.descripcion_entregable }}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No se encontraron resultados.</p>
+{% endif %}
+{% endblock %}
