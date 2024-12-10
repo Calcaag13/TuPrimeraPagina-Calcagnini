@@ -19,7 +19,7 @@
 ## Estructura del Proyecto
 
 - `models.py`: Definición de las clases del modelo.
-- `forms.py`: Definición de los formularios.
+- `formularios.py`: Definición de los formularios.
 - `views.py`: Vistas para manejar las solicitudes HTTP.
 - `urls.py`: Enrutamiento de URLs.
 - `templates/`: Plantillas HTML para la interfaz de usuario.
